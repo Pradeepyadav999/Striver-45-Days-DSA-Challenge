@@ -15,7 +15,7 @@ public:
             st.pop();
         }
         sort(arr.begin(), arr.end());
-        for(int i = 0; i < (int)arr.size(); i++) {
+        for(int i = 0; i < arr.size(); i++) {
             st.push(arr[i]);
         }    
     }
