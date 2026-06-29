@@ -1,0 +1,51 @@
+#include <algorithm>
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    string reverseWords(string s) {
+
+        vector<string> words;
+        string word;
+
+        for(char ch : s) {
+
+            if(ch != ' ') {
+                word += ch;
+            }
+            else {
+
+                if(!word.empty()) {
+                    words.push_back(word);
+                    word.clear();
+                }
+            }
+        }
+
+        if(!word.empty())
+            words.push_back(word);
+
+        string ans;
+
+        for(int i = words.size() - 1; i >= 0; i--) {
+
+            ans += words[i];
+
+            if(i != 0)
+                ans += " ";
+        }
+
+        return ans;
+    }
+};
+
+
+int main() {
+    Solution solution;
+    string s = "  Hello   World  ";
+    string result = solution.reverseWords(s);
+    cout << "\"" << result << "\"" << endl; // Output: "World Hello"
+    return 0;
+}
