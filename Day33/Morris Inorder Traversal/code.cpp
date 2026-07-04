@@ -15,29 +15,33 @@ struct TreeNode {
 
 class Solution {
 public:
-    vector<int> getInorder(TreeNode* root) {
-        vector<int> ans;
-        TreeNode* cur = root;
-        while (cur != NULL) {
-            if (cur->left == NULL) {
-                ans.push_back(cur->data);
-                cur = cur->right;
-            } else {
-                TreeNode* prev = cur->left;
-                while (prev->right && prev->right != cur) {
-                    prev = prev->right;
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>inorder;
+        // curr pointing to root
+        TreeNode* curr=root;
+        while(curr!=NULL){
+            // Case 1 ->No left present
+            if(curr->left==NULL){
+                inorder.push_back(curr->data);
+                curr=curr->right;   //curr goes to rignt 
+            }else{
+                // Case 2->Move to left subtree rightmost element and make thread
+                TreeNode* prev=curr->left;
+                while(prev->right && prev->right!=curr){
+                    prev=prev->right;   //We goes right if prev have right and its right pointer not pointing to curr
                 }
-                if (prev->right == NULL) {
-                    prev->right = cur;
-                    cur = cur->left;
-                } else {
-                    prev->right = NULL;
-                    ans.push_back(cur->data);
-                    cur = cur->right;
+                if(prev->right==NULL){
+                    prev->right=curr;
+                    curr = curr->left;
+                    // After threading we goes to left of root
+                }else{
+                    prev->right=NULL;   //Remove thread
+                    inorder.push_back(curr->data);
+                    curr=curr->right;
                 }
             }
         }
-        return ans;
+        return inorder;
     }
 };
 
@@ -47,7 +51,7 @@ int main() {
     root->right->left = new TreeNode(3);
 
     Solution sol;
-    vector<int> inorderTraversal = sol.getInorder(root);
+    vector<int> inorderTraversal = sol.inorderTraversal(root);
 
     for (int val : inorderTraversal) {
         cout << val << " ";
