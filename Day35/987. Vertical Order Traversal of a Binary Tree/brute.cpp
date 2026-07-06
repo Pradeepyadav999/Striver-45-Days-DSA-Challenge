@@ -18,7 +18,7 @@ public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         // Line->level->node
         map<int, map<int, multiset<int>>> mp;
-        // {node, {row, column}}
+        // {node, {line, level}}
         queue<pair<TreeNode*, pair<int, int>>> q;
         q.push({root, {0, 0}});
         while (!q.empty()) {
@@ -40,9 +40,10 @@ public:
             vector<int>column;
             // it.second-->its line and level
             for(auto iterate : it.second){
+                // iterate.second-->>its multiset<int> of node
                 for (int x : iterate.second) {
                      column.push_back(x);
-}
+                }
             }
             ans.push_back(column);
         }
