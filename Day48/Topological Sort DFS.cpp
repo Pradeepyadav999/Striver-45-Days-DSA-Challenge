@@ -13,7 +13,7 @@ public:
         st.push(node);
     }
     vector<int> topoSort(int V, vector<int> adj[]) {
-        int vis[V]={0};
+        vector<int> vis(V, 0);
         stack<int>st;
         for(int i=0;i<V;i++){
             if(!vis[i]){
